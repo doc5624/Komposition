@@ -26,7 +26,4 @@ public class FilmsRepository {
         return films;
     }
 
-    public int lengthArray() {
-        return films.length;
-    }
 }

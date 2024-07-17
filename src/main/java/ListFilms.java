@@ -13,23 +13,4 @@ public class ListFilms {
         return id;
     }
 
-    public void setId() {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName() {
-        this.name = name;
-    }
-
-    public String getGenre() {
-        return genre;
-    }
-
-    public void setGenre() {
-        this.genre = genre;
-    }
 }
