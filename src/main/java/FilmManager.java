@@ -1,15 +1,38 @@
 public class FilmManager {
-    private FilmsRepository repo;
     private int resultLength;
+    private ListFilms[] films = new ListFilms[0];
 
-    public FilmManager(FilmsRepository reposit) {
-        this.repo = reposit;
+    public FilmManager() {
         this.resultLength = 5;
     }
 
-    public FilmManager(FilmsRepository reposit, int resultLengthMax) {
-        this.repo = reposit;
+    public FilmManager(int resultLengthMax) {
         this.resultLength = resultLengthMax;
+    }
+
+    public void save(ListFilms film) {
+        ListFilms[] tmp = new ListFilms[films.length + 1];
+        for (int i = 0; i < films.length; i++) {
+            tmp[i] = films[i];
+        }
+        tmp[tmp.length - 1] = film;
+        films = tmp;
+    }
+
+    public void removeById(int id) {
+        ListFilms[] tmp = new ListFilms[films.length - 1];
+        int copyToIndex = 0;
+        for (ListFilms film : films) {
+            if (film.getId() != id) {
+                tmp[copyToIndex] = film;
+                copyToIndex++;
+            }
+        }
+        films = tmp;
+    }
+
+    public ListFilms[] getFilms() {
+        return films;
     }
 
     public int getResultLength() {
@@ -21,12 +44,11 @@ public class FilmManager {
     }
 
     public void add(ListFilms film) {
-        repo.save(film);
-
+        save(film);
     }
 
     public ListFilms[] findLast() {
-        ListFilms[] all = repo.getFilms();
+        ListFilms[] all = getFilms();
         int resultLengthMax = getResultLength();
         int lengthArray = all.length;
         int lengthArrayReversed;
@@ -46,7 +68,7 @@ public class FilmManager {
     }
 
     public ListFilms[] findAll() {
-        ListFilms[] allFilms = repo.getFilms();
+        ListFilms[] allFilms = getFilms();
         return allFilms;
     }
 }

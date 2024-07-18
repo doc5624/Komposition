@@ -4,8 +4,7 @@ import org.junit.jupiter.api.Test;
 
 public class FilmManagerTest {
 
-    FilmsRepository repo = new FilmsRepository();
-    FilmManager manager = new FilmManager(repo);
+    FilmManager manager = new FilmManager();
     ListFilms film1 = new ListFilms(11, "Бладшот", "Боевик");
     ListFilms film2 = new ListFilms(22, "Вперед", "Мультфильм");
     ListFilms film3 = new ListFilms(10, "Отель", "Комедия");
@@ -55,8 +54,7 @@ public class FilmManagerTest {
 
     @Test
     public void findLastMinTest() {
-        FilmsRepository repo2 = new FilmsRepository();
-        FilmManager manager2 = new FilmManager(repo2, 3);
+        FilmManager manager2 = new FilmManager(3);
 
         manager2.add(film1);
         manager2.add(film2);
@@ -75,8 +73,7 @@ public class FilmManagerTest {
 
     @Test
     public void findLastMaxTest() {
-        FilmsRepository repo2 = new FilmsRepository();
-        FilmManager manager2 = new FilmManager(repo2, 8);
+        FilmManager manager2 = new FilmManager(8);
 
         manager2.add(film1);
         manager2.add(film2);
@@ -88,6 +85,16 @@ public class FilmManagerTest {
 
         ListFilms[] expected = {film7, film6, film5, film4, film3, film2, film1};
         ListFilms[] actual = manager2.findLast();
+        Assertions.assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void test() {
+        manager.removeById(film2.getId());
+
+        ListFilms[] expected = {film1, film3, film4, film5, film6, film7};
+        ListFilms[] actual = manager.getFilms();
+
         Assertions.assertArrayEquals(expected, actual);
     }
 }
